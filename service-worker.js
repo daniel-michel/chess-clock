@@ -35,9 +35,14 @@ self.addEventListener("install", e =>
 			let cache = await caches.open(CACHE_NAME);
 			for (let url of requiredContent)
 			{
-				console.log("caching url:", url);
-				await cache.add(url);
-				await new Promise(r => setTimeout(r, 500));
+				try
+				{
+					await cache.add(url);
+				}
+				catch (e)
+				{
+					console.warn("[Service Worker] unable to cache:", url);
+				}
 			}
 		})()
 	);

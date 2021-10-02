@@ -1,0 +1,26 @@
+{
+	"name": "Chess Clock",
+	"short_name": "Chess Clock",
+	"description": "It is a chess clock.",
+	"icons": [
+		{
+			"src": "icons/icon-big.svg",
+			"sizes": "200x200",
+			"type": "image/svg+xml"
+		},
+		{
+			"src": "icons/icon.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/icon_2048.png",
+			"sizes": "2048x2048",
+			"type": "image/png"
+		}
+	],
+	"start_url": "/chess-clock/index.html",
+	"display": "standalone",
+	"theme_color": "rgb(43, 76, 223)",
+	"background_color": "#151515"
+}

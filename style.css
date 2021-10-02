@@ -1,0 +1,463 @@
+
+body
+{
+	background-color: rgb(0, 0, 0);
+	font-family: Arial, Helvetica, sans-serif;
+	color: white;
+}
+
+button
+{
+	outline: none;
+}
+
+.chess-clock
+{
+	font-size: 1.5vw;
+	--scale: 2vh;
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr auto 1fr;
+	grid-template-areas: "player1 options player2";
+	background-color: rgba(255, 0, 0, 0);
+	position: fixed;
+	--padding: calc(var(--scale) * 2);
+	padding: var(--padding);
+	gap: calc(var(--scale) * 2);
+	top: 0;
+	left: 0;
+	width: calc(100% - var(--padding) * 2);
+	height: calc(100% - var(--padding) * 2);
+
+	--animation-time: 1s;
+	--opacity-time: calc(var(--animation-time) * 0.3);
+	--width-time: calc(var(--animation-time) * 0.7);
+}
+.chess-clock.portrait
+{
+	--scale: 2vw;
+	font-size: 3vw;
+	grid-auto-flow: row;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr auto 1fr;
+	grid-template-areas: 
+		"player2"
+		"options"
+		"player1";
+}
+
+.clock-player1
+{
+	grid-area: player1;
+}
+.clock-player2
+{
+	grid-area: player2;
+}
+
+.clock-options
+{
+	grid-area: options;
+
+	display: grid;
+	grid-auto-flow: row;
+}
+.chess-clock.portrait .clock-options
+{
+	grid-auto-flow: column;
+}
+.img-button
+{
+	background-color: transparent;
+	border: none;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center center;
+}
+.clock-options .img-button
+{
+	width: calc(var(--scale) * 5);
+	height: calc(var(--scale) * 5);
+	margin: auto;
+}
+
+.clock-button
+{
+	display: grid;
+	border-radius: calc(var(--scale) * 0.3);
+	grid-template-rows: 1fr auto;
+
+	/* background-color: rgb(58, 58, 58); */
+	--delay-percentage: 0%;
+	background: linear-gradient(to bottom, rgb(36, 36, 36) var(--delay-percentage), rgb(58, 58, 58) var(--delay-percentage));
+	color: white;
+
+	/* background-color: rgb(29, 29, 29);
+	color: rgb(80, 80, 80); */
+	opacity: 0.5;
+	transition: opacity 0.2s, color 0.2s;
+}
+.clock-button.active
+{
+	opacity: 1;
+	/* background-color: rgb(58, 58, 58);
+	color: white; */
+}
+.clock-button.lost
+{
+	color: rgb(255, 128, 128);
+}
+.chess-clock.portrait .clock-button:last-child
+{
+	transform: rotate(180deg);
+}
+
+.time-display
+{
+	pointer-events: none;
+	user-select: none;
+	cursor: default;
+	font-size: 7em;
+	display: grid;
+	grid-auto-flow: column;
+	width: fit-content;
+	margin: auto;
+}
+.time-display *
+{
+	opacity: 1;
+	transition: width var(--width-time), opacity var(--opacity-time) var(--width-time);
+}
+.hour-display, .minute-display
+{
+	width: 2.5ch;
+}
+.second-display
+{
+	width: 2ch;
+}
+.hundreds-display
+{
+	font-size: 0.5em;
+	margin-top: 85%;
+	width: 2ch;
+}
+.time-display *.hidden
+{
+	opacity: 0;
+	width: 0;
+	transition: width var(--width-time) var(--opacity-time), opacity var(--opacity-time);
+}
+
+.time-bar-indicator
+{
+	--bar-color: blue;
+	background: linear-gradient(to right, var(--bar-color) 50%, transparent 50%);
+	background-color: rgb(19, 19, 19);
+	background-size: 200% 100%;
+	background-position-x: 50%;
+	margin: var(--scale);
+	height: var(--scale);
+	border-radius: calc(var(--scale) * 0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.multiselect
+{
+	cursor: default;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	width: fit-content;
+	grid-auto-flow: column;
+	/* justify-items: center; */
+	text-align: center;
+	position: relative;
+}
+.multiselect-option
+{
+	padding: 0.5em;
+}
+.multiselect-selection
+{
+	pointer-events: none;
+	/* border-radius: 0.3em; */
+	background-color: rgba(0, 0, 255, 0);
+	/* backdrop-filter: sepia(1) saturate(5) hue-rotate(180deg); */
+	border-bottom: 0.2em solid rgb(74, 74, 255);
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 2em;
+	transition: width .2s, height .2s, left .2s, top .2s;
+}
+
+
+
+
+.time-selector
+{
+	--fade-color: rgb(27, 27, 27);
+	background-color: var(--fade-color);
+	font-size: 2rem;
+	display: grid;
+	grid-auto-flow: column;
+	gap: 0.2em;
+	width: fit-content;
+	justify-items: center;
+	align-items: center;
+	overflow: hidden;
+	border-radius: 0.2em;
+}
+.time-selector button
+{
+	font-size: 1em;
+}
+
+
+
+
+
+
+.number-selection
+{
+	background-color: var(--fade-color);
+	display: grid;
+	justify-items: center;
+	align-items: center;
+	grid-auto-flow: row;
+	/* gap: 0.2em; */
+}
+.number-selection .img-button
+{
+	width: 100%;
+	background-size: 1em;
+	height: 1.5em;
+}
+.number-wrapper
+{
+	position: relative;
+}
+.number-container
+{
+	cursor: default;
+	user-select: none;
+	padding: 1em 0.6em;
+	/* padding: 0.5em; */
+	height: 1em;
+	overflow: hidden;
+	scroll-snap-type: y mandatory;
+	overflow: auto;
+	scroll-behavior: smooth;
+	/* scrollbar-width: none; */
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.number-container > *
+{
+	scroll-snap-align: center;
+}
+.number-wrapper .number-fade
+{
+	background: linear-gradient(to bottom, var(--fade-color), transparent, transparent, var(--fade-color));
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.number-container > *:first-child
+{
+	margin-top: 1em;
+}
+.number-container > *:last-child
+{
+	margin-bottom: 1em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.settings
+{
+	display: grid;
+	grid-template-rows: 1fr auto;
+	font-size: 1.3em;
+	/* --padding: 1em; */
+	/* padding: var(--padding); */
+	background-color: rgb(39, 39, 39);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.settings-content
+{
+	display: grid;
+	/* grid-auto-flow: column; */
+	grid-template-areas: 
+		"heading install"
+		"time save"
+		"time list"
+		"timePerMove list";
+	overflow: auto;
+	padding: 1em;
+}
+.settings-content > *
+{
+	height: fit-content;
+}
+.section-time
+{
+	grid-area: time;
+}
+.time-per-move-section
+{
+	grid-area: timePerMove;
+}
+
+.time-controls-list
+{
+	grid-area: list;
+	/* background-color: red; */
+	display: grid;
+	width: fit-content;
+	gap: 0.05em;
+	background-color: rgb(75, 75, 75);
+}
+.time-controls-list > div
+{
+	cursor: default;
+	/* padding: 0.3em 0.5em; */
+	user-select: none;
+	gap: 1em;
+	padding: 0.2em 0.5em;
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: 3fr 1fr auto;
+	align-items: center;
+	background-color: rgb(39, 39, 39);
+	transition: background-color .2s;
+}
+.time-controls-list > div:hover
+{
+	background-color: rgb(58, 58, 58);
+}
+.time-controls-list .img-button
+{
+	filter: drop-shadow(0 0 0.5em rgba(255, 0, 0, 0));
+	width: 2em;
+	height: 2em;
+	transition: background .2s, filter .2s;
+}
+.time-controls-list .img-button:hover
+{
+	filter: drop-shadow(0 0 0.5em red);
+}
+
+.section-save
+{
+	grid-area: save;
+	margin: 0.5em 0;
+	display: grid;
+	grid-auto-flow: column;
+	gap: 0.5em;
+	width: fit-content;
+}
+.section-save input, .section-save button, .section-install button
+{
+	font-size: 0.9em;
+	padding: 0.3em 0.5em;
+	background-color: rgb(24, 24, 24);
+	color: white;
+	border: none;
+	outline: none;
+	border-radius: 0.2em;
+}
+.section-save button, .section-install button
+{
+	background-color: rgb(43, 76, 223);
+	transition: background-color 0.2s;
+}
+.section-save button:hover, .section-install button:hover
+{
+	background-color: rgb(60, 106, 255);
+}
+
+.section-install
+{
+	grid-area: install;
+}
+
+
+.finish-buttons
+{
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: auto 1fr auto auto;
+	text-align: right;
+	padding: 1em;
+	box-shadow: 0 0 1em rgba(0, 0, 0, 0.418);
+	align-items: center;
+	justify-items: center;
+}
+.finish-buttons button
+{
+	font-size: 1em;
+	margin: 0 0.3em;
+	border: none;
+	background-color: rgb(56, 56, 56);
+	border-radius: 0.2em;
+	color: white;
+	padding: 0.3em 0.5em;
+	transition: background-color .2s;
+}
+.finish-buttons button:hover
+{
+	background-color: rgb(77, 77, 77);
+}
+
+.finish-buttons button.img-button
+{
+	background-color: transparent;
+	width: 1.6em;
+	height: 1.6em;
+}
+.finish-buttons .main-button
+{
+	background-color: rgb(43, 76, 223);
+}
+.finish-buttons .main-button:hover
+{
+	background-color: rgb(60, 106, 255);
+}

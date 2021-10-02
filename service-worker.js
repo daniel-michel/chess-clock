@@ -33,7 +33,17 @@ self.addEventListener("install", e =>
 	e.waitUntil(
 		(async () => {
 			let cache = await caches.open(CACHE_NAME);
-			await cache.addAll(requiredContent);
+			for (let url of requiredContent)
+			{
+				try
+				{
+					await cache.add(url);
+				}
+				catch (e)
+				{
+					console.warn("[Service Worker] unable to cache:", url);
+				}
+			}
 		})()
 	);
 });

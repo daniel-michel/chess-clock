@@ -33,7 +33,12 @@ self.addEventListener("install", e =>
 	e.waitUntil(
 		(async () => {
 			let cache = await caches.open(CACHE_NAME);
-			await cache.addAll(requiredContent);
+			for (let url of requiredContent)
+			{
+				console.log("caching url:", url);
+				await cache.add(url);
+				await new Promise(r => setTimeout(r, 500));
+			}
 		})()
 	);
 });

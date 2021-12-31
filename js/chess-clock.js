@@ -9,7 +9,6 @@ function timeToString(time)
 	let minutes = seconds / 60;
 	let secondsText = (seconds % 60).toString();
 	let minutesText = minutes.toString();
-	//@ts-ignore
 	return minutesText.padStart(2, "0") + ":" + secondsText.padStart(2, "0");
 }
 
@@ -69,7 +68,6 @@ export default class ChessClock
 		this.#events[type] ??= [];
 		this.#events[type].push(callback);
 	}
-	//@ts-ignore
 	#fireEvent(type, ...args)
 	{
 		if (this.#events[type])
@@ -95,7 +93,6 @@ export default class ChessClock
 	 * 
 	 * @param {{looping: boolean, timeout: number}} options 
 	 */
-	//@ts-ignore
 	#updateLoopState(options)
 	{
 		if (this.#loopState.looping !== options.looping)
@@ -105,7 +102,6 @@ export default class ChessClock
 		this.#loopState.id %= 100_000_000;
 		this.#loop(this.#loopState.id);
 	}
-	//@ts-ignore
 	#loop(id)
 	{
 		if (this.#loopState.id !== id)
@@ -120,7 +116,6 @@ export default class ChessClock
 		else
 			setTimeout(() => this.#loop(id), this.#loopState.timeout);
 	}
-	//@ts-ignore
 	#update()
 	{
 		if (this.#timerRunning.player !== Player.None)

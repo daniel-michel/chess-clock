@@ -31,7 +31,6 @@ export class NumberSelector
 		for (let i = range[0]; i < range[1]; i++)
 		{
 			let child = document.createElement("div");
-			//@ts-ignore
 			child.textContent = i.toString().padStart(longest, "0");
 			this.numberContainer.appendChild(child);
 			this.numbers.push(child);

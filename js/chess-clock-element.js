@@ -71,13 +71,9 @@ class ClockElement
 		let seconds = Math.floor(houndreds / 100);
 		let minutes = Math.floor(seconds / 60);
 		let hours = Math.floor(minutes / 60);
-		//@ts-ignore
 		this.#hoursDisplay.textContent = hours.toString().padStart(2, "0") + ":";
-		//@ts-ignore
 		this.#minuteDisplay.textContent = (minutes % 60).toString().padStart(2, "0") + ":";
-		//@ts-ignore
 		this.#secondDisplay.textContent = (seconds % 60).toString().padStart(2, "0");
-		//@ts-ignore
 		this.#houndredsDisplay.textContent = (houndreds % 100).toString().padStart(2, "0");
 
 		if (time <= 15000)
@@ -262,7 +258,6 @@ export class ChessClockElement
 		this.#player2Button.element.classList.add("clock-player2");
 		this.#element.appendChild(this.#player2Button.element);
 
-		//@ts-ignore
 		let observer = new ResizeObserver(entries =>
 		{
 			this.#element.classList.toggle("portrait", this.#element.offsetHeight / this.#element.offsetWidth > 0.9);
@@ -325,7 +320,7 @@ export class ChessClockElement
 
 		this.#updateDisplay();
 	}
-	//@ts-ignore
+
 	#updateDisplay()
 	{
 		this.#player1Button.updateDisplay();
@@ -559,13 +554,11 @@ export class ChessClockElement
 		});
 	}
 
-	//@ts-ignore
 	#saveToLocalStorage()
 	{
 		let json = JSON.stringify(this.#timeControls);
 		localStorage.setItem("ChessClock_TimeControls", json);
 	}
-	//@ts-ignore
 	#loadFromLocalStorage()
 	{
 		let json = localStorage.getItem("ChessClock_TimeControls");

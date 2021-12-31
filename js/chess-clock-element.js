@@ -270,6 +270,7 @@ export class ChessClockElement
 		this.#clock.on("lost", () =>
 		{
 			loseSound.play();
+			navigator.vibrate([100, 100, 500]);
 		});
 
 		(async () =>

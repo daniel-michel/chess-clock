@@ -111,7 +111,7 @@ class ClockElement
 		element.classList.add("settings");
 
 		let content = document.createElement("div");
-		content.classList.add("settings-content");
+		content.classList.add("edit-time-settings-content");
 
 		let heading = document.createElement("h1");
 		heading.textContent = `Set Time for Player ${this.#player}`;
@@ -195,7 +195,7 @@ class Multiselect
 	{
 		let index = this.options.indexOf(this.selected);
 		let element = this.element.children[index + 1];
-		this.selectionElement.style.left = (index * element.getBoundingClientRect().width) + "px";
+		this.selectionElement.style.left = [...this.element.children].slice(1, index + 1).reduce((width, element) => width + element.getBoundingClientRect().width, 0) + "px";
 		//@ts-ignore
 		this.selectionElement.style.width = element.offsetWidth + "px";
 	}
@@ -295,7 +295,7 @@ export class ChessClockElement
 			{
 				if (wakeLock)
 				{
-					await wakeLock.release()
+					await wakeLock.release();
 					wakeLock = null;
 					console.log("WakeLock disabled!");
 				}
@@ -400,11 +400,13 @@ export class ChessClockElement
 
 		content.appendChild(timePerMoveSection);
 
-		let saveSection = document.createElement("div");
-		saveSection.classList.add("section-save");
-		let nameInput = document.createElement("input");
+		const listSection = document.createElement("div");
+		listSection.classList.add("section-list");
+		const saveSection = document.createElement("div");
+		saveSection.classList.add("save-list");
+		const nameInput = document.createElement("input");
 		saveSection.appendChild(nameInput);
-		let saveButton = document.createElement("button");
+		const saveButton = document.createElement("button");
 		saveButton.textContent = "Save";
 		saveButton.addEventListener("click", () =>
 		{
@@ -414,7 +416,7 @@ export class ChessClockElement
 			updateList();
 		});
 		saveSection.appendChild(saveButton);
-		content.appendChild(saveSection);
+		listSection.appendChild(saveSection);
 
 		let savedTimeControlsList = document.createElement("div");
 		savedTimeControlsList.classList.add("time-controls-list");
@@ -476,34 +478,32 @@ export class ChessClockElement
 			}
 		};
 		updateList();
-		content.appendChild(savedTimeControlsList);
-
-		let installSection = document.createElement("div");
-		installSection.classList.add("section-install");
+		listSection.appendChild(savedTimeControlsList);
+		content.appendChild(listSection);
 
 		if (this.#installPrompt)
 		{
+			const installSection = document.createElement("div");
+			installSection.classList.add("section-install");
 			let button = document.createElement("button");
 			button.textContent = "Install app";
-			button.addEventListener("click", async () =>
+			installSection.appendChild(button);
+			installSection.addEventListener("click", async () =>
 			{
-				installSection.removeChild(button);
+				content.removeChild(installSection);
 				this.#installPrompt.prompt();
 				let choiceResult = await this.#installPrompt.userChoice;
 				console.log("result", choiceResult);
 				this.#installPrompt = undefined;
 			});
-			installSection.appendChild(button);
+			content.appendChild(installSection);
 		}
-
-		content.appendChild(installSection);
-
 
 		settings.appendChild(content);
 
-		let finishBar = document.createElement("div");
+		const finishBar = document.createElement("div");
 		finishBar.classList.add("finish-buttons");
-		let toggleFullScreen = document.createElement("button");
+		const toggleFullScreen = document.createElement("button");
 		toggleFullScreen.classList.add("img-button");
 		toggleFullScreen.style.backgroundImage = document.fullscreenElement ? `url("images/fullscreen_exit-white-18dp.svg")` : `url("images/fullscreen-white-18dp.svg")`;
 		toggleFullScreen.addEventListener("click", () =>

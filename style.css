@@ -311,7 +311,7 @@ button
 {
 	display: grid;
 	grid-template-rows: 1fr auto;
-	font-size: 1.3em;
+	font-size: 1.1em;
 	/* --padding: 1em; */
 	/* padding: var(--padding); */
 	background-color: rgb(39, 39, 39);
@@ -321,18 +321,35 @@ button
 	width: 100%;
 	height: 100%;
 }
+.edit-time-settings-content
+{
+	overflow: auto;
+	padding: 1em;
+}
 .settings-content
 {
+	position: relative;
 	display: grid;
 	/* grid-auto-flow: column; */
 	grid-template-areas: 
-		"heading install"
-		"time save"
+		"heading ."
+		"time list"
 		"time list"
 		"timePerMove list";
 	overflow: auto;
 	padding: 1em;
 }
+@media screen and (max-width: 900px) {
+	.settings-content
+	{
+		grid-template-areas: 
+			"heading ."
+			"list list"
+			"time time"
+			"timePerMove timePerMove";
+	}
+}
+
 .settings-content > *
 {
 	height: fit-content;
@@ -341,7 +358,11 @@ button
 {
 	grid-area: time;
 }
-.time-per-move-section
+.section-list
+{
+	grid-area: list;
+}
+.section-time-per-move
 {
 	grid-area: timePerMove;
 }
@@ -385,16 +406,15 @@ button
 	filter: drop-shadow(0 0 0.5em red);
 }
 
-.section-save
+.save-list
 {
-	grid-area: save;
 	margin: 0.5em 0;
 	display: grid;
 	grid-auto-flow: column;
 	gap: 0.5em;
 	width: fit-content;
 }
-.section-save input, .section-save button, .section-install button
+.save-list input, .save-list button
 {
 	font-size: 0.9em;
 	padding: 0.3em 0.5em;
@@ -404,19 +424,45 @@ button
 	outline: none;
 	border-radius: 0.2em;
 }
-.section-save button, .section-install button
+.save-list button
 {
 	background-color: rgb(43, 76, 223);
 	transition: background-color 0.2s;
 }
-.section-save button:hover, .section-install button:hover
+.save-list button:hover
 {
 	background-color: rgb(60, 106, 255);
 }
 
 .section-install
 {
-	grid-area: install;
+	position: absolute;
+	top: 0;
+	right: 0;
+	transition: padding .2s;
+}
+.section-install:hover
+{
+	padding-top: 0.5em;
+	padding-right: 0.5em;
+}
+.section-install button
+{
+	font-size: 0.8em;
+	color: white;
+	background-color: rgb(19, 118, 143);
+	padding: 0.3em 0.6em;
+	border: none;
+	border-bottom-left-radius: 0.3em;
+	box-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.116);
+	transition: background-color .2s, box-shadow .2s, border-radius .2s, font-size .2s;
+}
+.section-install:hover button
+{
+	font-size: 1em;
+	background-color: rgb(43, 166, 197);
+	border-radius: 0.3em;
+	box-shadow: 0.2em 0.2em 1.3em rgba(0, 0, 0, 0.712);
 }
 
 

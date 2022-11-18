@@ -269,8 +269,8 @@ export class ChessClockElement
 		let loseSound = new Audio("sound/timeout.ogg");
 		this.#clock.on("lost", () =>
 		{
-			loseSound.play();
 			navigator.vibrate([100, 100, 500]);
+			loseSound.play();
 		});
 
 		(async () =>
